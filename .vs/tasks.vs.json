@@ -1,0 +1,20 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "任务-linkedList",
+      "appliesTo": "Linklist/linkList/Headers/linkedList.h",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "任务-Linklist",
+      "appliesTo": "/",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "任务-linkedList",
+      "appliesTo": "Linklist/linkList/Sources/linkedList.c",
+      "type": "launch"
+    }
+  ]
+}

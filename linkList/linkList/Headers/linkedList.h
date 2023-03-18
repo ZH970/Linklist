@@ -33,7 +33,7 @@ typedef int ElemType;
 // define struct of linked list
 typedef struct LNode {
 	ElemType data;
-  	struct LNode *next;
+	struct LNode *next;
 } LNode, *LinkedList;
 
 // define Status
@@ -136,6 +136,7 @@ LNode* ReverseEvenList(LinkedList *L);
  *  @notice      : choose to finish
  */
 LNode* FindMidNode(LinkedList *L);
+
 
  /**************************************************************
 *	End-Multi-Include-Prevent Section

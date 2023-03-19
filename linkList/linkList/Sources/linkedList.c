@@ -36,6 +36,7 @@ void DestroyList(LinkedList *L) {
 
 Status DeleteList(LNode *p, ElemType* e) {
 	Status del = ERROR;
+	*e = 0;
 	LNode *next = p->next;
 	if (next != NULL) {
 		*e = next->data;
@@ -65,20 +66,21 @@ void TraverseList(LinkedList L, void (*visit)(ElemType e)) {
 }
 
 Status SearchList(LinkedList L, ElemType e) {
+	LNode* find = L;
 	printf("It will start from the L's position.\n");
 	printf("Head node is recommanded\n");
 	Status search = ERROR;
-	while (L != NULL) {
-		if (L->data == e) {
-			printf("Now L->data is e");
+	while (find != NULL) {
+		if (find->data == e) {
+			printf("There is %d in this linkedlist\n",e);
 			search = SUCCESS;
 			return search;
 		}
 		else {
-			L = L->next;
+			find = find->next;
 		}
 	}
-	printf("Couldn't find e\n");
+	printf("Couldn't find it\n");
 	return search;
 }
 
@@ -92,8 +94,11 @@ Status ReverseList(LinkedList *L) {
 		current->next = previous;
 		previous = current;
 		current = next;
+		if (current != NULL) {
+			next = current->next;
+		}
 	}
-	previous = *L;
+	*L = previous;
 	rev = SUCCESS;
 	return rev;
 }
@@ -145,10 +150,11 @@ LNode* FindMidNode(LinkedList *L) {
 	LinkedList fast = malloc(sizeof(LNode));
 	slow = *L;
 	fast = *L;
-	printf("Head node is recommanded\n");
+	printf("Head node is recommanded(If the list length is even, the output may be inaccurate)\n");
 	while (fast != NULL) {
 		if (fast->next == NULL) {
 			fast = NULL;
+			return slow;
 		}
 		else {
 			fast = fast->next->next;
@@ -275,7 +281,7 @@ void main() {
 	LinkedList L = malloc(sizeof(LNode));//Create a list
 	L->next = NULL;
 	char c = '0'; //Option
-	int temp = 0,is = 0;
+	int temp = 0,is = 0,bit = 0;
 	void (*visit)(ElemType e);
 	visit = &printf;
 	printf("1.Create and init a list\n");
@@ -287,12 +293,13 @@ void main() {
 	printf("7.Whether it is loop list\n");
 	printf("8.Reverse the even num in the list\n");
 	printf("9.Find the mid node\n");
-	printf("\n-----------------\n");
+	printf("\n-------------------\n");
 	printf("Please chose mode(push * to quit):\n");
 	while (c != '*') {
 		c = getchar();
 		is = isdigit(c); //check whether c is num
-		if (is != 0) {
+		bit = sizeof(c); //judge whether c is 1 bit
+		if (is != 0 && bit == 1) {
 			if (c == '1') {
 				InitList(&L);
 			}
@@ -317,10 +324,13 @@ void main() {
 				InsertList(node, insertnode);
 			}
 			if (c == '4') {
+				printf("Input the num behind the linkedlist headnode:\n");
 				scanf_s("%d", &temp);
-				DeleteList(&L, temp);
+				LNode* node = GetNode(L, temp);
+				DeleteList(node, &temp);
 			}
 			if (c == '5') {
+				printf("Please input the num that you want to find:\n");
 				scanf_s("%d", &temp);
 				SearchList(L, temp);
 			}
@@ -332,7 +342,7 @@ void main() {
 			}if (c == '8') {
 				ReverseEvenList(&L);
 			}if (c == '9') {
-				FindMidNode(&L);
+				printf("The mid num is %d\n", FindMidNode(&L)->data);
 			}
 
 		}

@@ -1,9 +1,5 @@
 ﻿  linkedList.c
 J:\Programing\C\QG\linkList\linkList\linkList\Sources\linkedList.c(10,2): warning C4013: “input”未定义；假设外部返回 int
-J:\Programing\C\QG\linkList\linkList\linkList\Sources\linkedList.c(280,8): warning C4113: “int (__cdecl *)(const char *const ,...)”和“void (__cdecl *)(ElemType)”的参数列表不同
-J:\Programing\C\QG\linkList\linkList\linkList\Sources\linkedList.c(321,18): warning C4047: “函数”:“LNode *”与“LinkedList *”的间接级别不同
-J:\Programing\C\QG\linkList\linkList\linkList\Sources\linkedList.c(321,16): warning C4024: “DeleteList”: 形参和实参 1 的类型不同
-J:\Programing\C\QG\linkList\linkList\linkList\Sources\linkedList.c(321,24): warning C4047: “函数”:“ElemType *”与“int”的间接级别不同
-J:\Programing\C\QG\linkList\linkList\linkList\Sources\linkedList.c(321,20): warning C4024: “DeleteList”: 形参和实参 2 的类型不同
-J:\Programing\C\QG\linkList\linkList\linkList\Sources\linkedList.c(211): warning C4715: “input”: 不是所有的控件路径都返回值
+J:\Programing\C\QG\linkList\linkList\linkList\Sources\linkedList.c(286,8): warning C4113: “int (__cdecl *)(const char *const ,...)”和“void (__cdecl *)(ElemType)”的参数列表不同
+J:\Programing\C\QG\linkList\linkList\linkList\Sources\linkedList.c(217): warning C4715: “input”: 不是所有的控件路径都返回值
   linkList.vcxproj -> J:\Programing\C\QG\linkList\linkList\x64\Debug\linkList.exe

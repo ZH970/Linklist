@@ -1,11 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Linklist",
-    "\\Linklist\\linkList",
-    "\\Linklist\\linkList\\Headers",
-    "\\Linklist\\linkList\\Release",
-    "\\Linklist\\linkList\\Sources"
+    "\\linkList",
+    "\\linkList\\linkList",
+    "\\linkList\\linkList\\Headers",
+    "\\linkList\\linkList\\Sources"
   ],
+  "SelectedNode": "\\linkList\\linkList\\Sources\\linkedList.c",
   "PreviewInSolutionExplorer": false
 }

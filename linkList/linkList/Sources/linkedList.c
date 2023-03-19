@@ -123,6 +123,8 @@ Status IsLoopList(LinkedList L) {
 		printf("LoopList: SUCCESS\n");
 		loop = SUCCESS;
 	}
+	printf("\nNOTE:LoopList now only is supported by 1./3./7. func\n");
+	printf("NOTE:And at the last printf, it must be closed manully!\n\n");
 	return loop;
 }
 
@@ -132,10 +134,14 @@ LNode* ReverseEvenList(LinkedList *L) {
 	LinkedList next = current->next;
 
 	if (IsLoopList(*L) == SUCCESS) { return *L;}
+	else { printf("The linkedlist isn't looplist\n"); }\
+
 	while (next != NULL) {
-		current->next = next->next;
-		next->next = previous->next;
-		previous->next = next;
+		if (current->data == '0' || current->data == '2' || current->data == '4' || current->data == '6' || current->data == '8' ) {
+			current->next = previous;
+			next->next = previous->next;
+			previous->next = next;
+		}
 
 		previous = current;
 		current = next;
@@ -168,9 +174,10 @@ Status input(LinkedList *head) {
 	Status i = ERROR;
 	char j; //input
 	int num = 0;
-	printf("# is end and * is quit\n");
+	printf("# is end and * is quit(o is looplist mode)\n");
 
-	while ((j = getchar()) != '#' && j != '*') {
+	while ((j = getchar()) != '#' && j != '*' ) {
+		LNode* new_node = malloc(sizeof(LNode));
 		if (isdigit(j)) {
 			num = j - '0';
 		}
@@ -181,7 +188,6 @@ Status input(LinkedList *head) {
 				(*head)->data = num;
 			}
 			else {
-				LNode* new_node = malloc(sizeof(LNode));
 				if (new_node == NULL) {
 					printf("Memory allocation failed,please try again.\n");
 					return i;
@@ -193,14 +199,28 @@ Status input(LinkedList *head) {
 			}
 		}
 		else if (!isspace(j)) {
+			//Determine whether it is a space
 			if (j == '#' ||j == '*') { break; }
 			else {
-				printf("ERROR! PLEASE INPUT NUMBER\n");
-				input(head);
-				return i;
+				if (j == 'o') {
+					//It's ok to let this part out of while 
+					LNode* right = *head;
+					while (right->next != NULL) {
+						right = right->next;
+					}
+					right->next = *head;
+					i = SUCCESS;
+					return i;
+				}
+				else {
+					printf("ERROR! PLEASE INPUT NUMBER\n");
+					input(head);
+					return i;
+				}
 			}
 		}
 	}	
+	
 	if (j == '#') {
 		if ((*head)->data == -22002072) {
 			printf("Illegal Linkedlist!\nPlease try again!\n\n");
@@ -339,9 +359,11 @@ void main() {
 			}
 			if (c == '7') {
 				IsLoopList(L);
-			}if (c == '8') {
+			}
+			if (c == '8') {
 				ReverseEvenList(&L);
-			}if (c == '9') {
+			}
+			if (c == '9') {
 				printf("The mid num is %d\n", FindMidNode(&L)->data);
 			}
 

@@ -129,23 +129,33 @@ Status IsLoopList(LinkedList L) {
 }
 
 LNode* ReverseEvenList(LinkedList *L) {
-	LinkedList previous = *L;
-	LinkedList current = (*L)->next;
+
+	LinkedList previous = NULL;
+	LinkedList current = *L;
 	LinkedList next = current->next;
 
 	if (IsLoopList(*L) == SUCCESS) { return *L;}
-	else { printf("The linkedlist isn't looplist\n"); }\
+	else { printf("The linkedlist isn't looplist\n"); }
+	if (next->data == 0 || next->data == 2 || next->data == 4 || next->data == 6 || next->data == 8) {
+		//make sure after reversing, *L still point to headnode 
+		*L = next;
+	}
 
-	while (next != NULL) {
-		if (current->data == '0' || current->data == '2' || current->data == '4' || current->data == '6' || current->data == '8' ) {
-			current->next = previous;
-			next->next = previous->next;
-			previous->next = next;
+	while (next != NULL ) {
+		if (next->data == 0 || next->data == 2 || next->data == 4 || next->data == 6 || next->data == 8 ) {
+			current->next = next->next;
+			next->next = current;
+			if (previous != NULL) {
+				previous->next = next;
+			}
+			previous = next;
+			next = current->next;
 		}
-
-		previous = current;
-		current = next;
-		next = next->next;
+		else {
+			previous = previous->next;
+			next = next->next;
+			current = current->next;
+		}
 	}
 	return *L;
 }

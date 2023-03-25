@@ -21,7 +21,7 @@ Status InsertList(LNode *p, LNode *q) {
 }
 
 void DestroyList(LinkedList *L) {
-	printf("It will start from the L's position.\n");
+	printf("\nIt will start from the L's position.\n");
 	printf("Head node is recommanded\n");
 	LNode *c = *L;
 	LNode *n;
@@ -49,14 +49,20 @@ Status DeleteList(LNode *p, ElemType* e) {
 }
 
 void TraverseList(LinkedList L, void (*visit)(ElemType e)) {
-	printf("It will start from the L's position.\n");
+	printf("\nIt will start from the L's position.\n");
 	printf("Head node is recommanded\n");
 	LNode* temp = L;
 	ElemType e = 0;
 	if (L != NULL) {
 		while (temp != NULL) {
 			e = temp->data;
-			visit(e);
+			if (e == -22002072) {
+				visit(e);
+				printf("(H)");
+			}
+			else {
+				visit(e);
+			}
 			temp = temp->next;
 		}
 	}
@@ -67,7 +73,7 @@ void TraverseList(LinkedList L, void (*visit)(ElemType e)) {
 
 Status SearchList(LinkedList L, ElemType e) {
 	LNode* find = L;
-	printf("It will start from the L's position.\n");
+	printf("\nIt will start from the L's position.\n");
 	printf("Head node is recommanded\n");
 	Status search = ERROR;
 	while (find != NULL) {
@@ -117,7 +123,7 @@ Status IsLoopList(LinkedList L) {
 		slow = slow->next;
 	}
 	if (fast == NULL) {
-		printf("Isn't looplist: ERROR\n");
+		printf("\nIsn't looplist: ERROR\n");
 	}
 	else {
 		printf("LoopList: SUCCESS\n");
@@ -135,7 +141,7 @@ LNode* ReverseEvenList(LinkedList *L) {
 	LinkedList next = current->next;
 
 	if (IsLoopList(*L) == SUCCESS) { return *L;}
-	else { printf("The linkedlist isn't looplist\n"); }
+	else { printf("\nThe linkedlist isn't looplist\n"); }
 	if (next->data == 0 || next->data == 2 || next->data == 4 || next->data == 6 || next->data == 8) {
 		//make sure after reversing, *L still point to headnode 
 		*L = next;
@@ -166,7 +172,7 @@ LNode* FindMidNode(LinkedList *L) {
 	LinkedList fast = malloc(sizeof(LNode));
 	slow = *L;
 	fast = *L;
-	printf("Head node is recommanded(If the list length is even, the output may be inaccurate)\n");
+	printf("\nHead node is recommanded(If the list length is even, the output may be inaccurate)\n");
 	while (fast != NULL) {
 		if (fast->next == NULL) {
 			fast = NULL;
@@ -184,7 +190,7 @@ Status input(LinkedList *head) {
 	Status i = ERROR;
 	char j; //input
 	int num = 0;
-	printf("# is end and * is quit(o is looplist mode)\n");
+	printf("\n# is end and * is quit(o is looplist mode)\n");
 
 	while ((j = getchar()) != '#' && j != '*' ) {
 		LNode* new_node = malloc(sizeof(LNode));
@@ -242,6 +248,7 @@ Status input(LinkedList *head) {
 		}
 	}
 	else if (j == '*') {
+		DestroyList(head);
 		return i;
 	}
 }
@@ -256,7 +263,7 @@ Status input(LinkedList *head) {
 Status JudgeList(LinkedList head) {
 	Status judge = ERROR;
 	if (head->data == -22002072) {
-		printf("Illegal Linkedlist!\nPlease create it first!\n\n");
+		printf("\nIllegal Linkedlist!\nPlease create it first!\n\n");
 	}
 	judge = SUCCESS;
 	return judge;
@@ -307,6 +314,7 @@ LNode* GetNode(LinkedList L, int location) {
 	return node;
 }
 
+
 void main() {
 	LinkedList L = malloc(sizeof(LNode));//Create a list
 	L->next = NULL;
@@ -323,7 +331,8 @@ void main() {
 	printf("7.Whether it is loop list\n");
 	printf("8.Reverse the even num in the list\n");
 	printf("9.Find the mid node\n");
-	printf("\n-------------------\n");
+	printf("**NOTE:This program has a node created firstly to be a virtual node/headnode**\n\n");
+	printf("\n--------------------------------\n");
 	printf("Please chose mode(push * to quit):\n");
 	while (c != '*') {
 		c = getchar();
@@ -340,12 +349,15 @@ void main() {
 			}
 
 			if (c == '2') {
+				JudgeList(L);
 				DestroyList(&L);
 			}
 			if (c == '3') {
-				printf("Input the num behind the linkedlist headnode:\n");
+				printf("Input the num behind the linkedlist headnode(* to skip and ** to quit):\n");
 				
-				scanf_s("%d", &temp);
+				while (scanf_s("%d", &temp) == 0 && getchar () != '*') {
+					printf("Please input number!/n");
+				}
 				LNode* node = GetNode(L, temp);
 				printf("Now input the insertnode's data:\n");
 				LNode* insertnode = malloc(sizeof(LNode)); //It'll insert to another node.
@@ -360,9 +372,13 @@ void main() {
 				DeleteList(node, &temp);
 			}
 			if (c == '5') {
-				printf("Please input the num that you want to find:\n");
-				scanf_s("%d", &temp);
-				SearchList(L, temp);
+				printf("Please input the num that you want to find:(** to exit)\n");
+				while (scanf_s("%d", &temp) == 0 && getchar() != '*') {
+					printf("Please input number!\n");
+				}
+				if (getchar() != "*") {
+					SearchList(L, temp);
+				}
 			}
 			if (c == '6') {
 				ReverseList(&L);
